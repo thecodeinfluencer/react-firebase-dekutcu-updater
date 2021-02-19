@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { DateTime } from "luxon";
 
+import firebase from "../config/Firebase";
 import Form from "../components/Form";
 import Button from "../components/Button";
 import Input from "../components/Input";
@@ -17,8 +19,11 @@ export default function Devotionals() {
   const dispatch = useDispatch();
   dispatch(fetchDevotionals());
 
+  const history = useHistory();
+  !firebase.auth().currentUser && history.push("/login");
+
   // const [devotionals, setDevotionals] = useState([]);
-  const devotionals = useSelector(state => state.devotionals.list).sort(
+  const devotionals = useSelector((state) => state.devotionals.list).sort(
     (a, b) => b.date - a.date
   );
 
@@ -41,7 +46,7 @@ export default function Devotionals() {
           <Form
             initialValues={{}}
             validationSchema={validator}
-            onSubmit={val => dispatch(createDevotional(val))}
+            onSubmit={(val) => dispatch(createDevotional(val))}
           >
             <div className="d-flex flex-row align-items-center  my-2">
               <h5 className="h4 m-0 mt-2">Add a devotional</h5>
@@ -63,7 +68,7 @@ export default function Devotionals() {
           <div className="d-flex flex-row align-items-center  my-2">
             <h5 className="h4 m-0 mt-2">Devotionals</h5>
           </div>
-          {devotionals.map(devotional => {
+          {devotionals.map((devotional) => {
             let id = "id" + Math.floor(Math.random() * 1000).toString();
             return (
               <div key={`${id}`} className="card p-3 mb-2">

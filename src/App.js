@@ -1,14 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Screen from "./layout/Screen";
 import Notifications from "./screens/Notifications";
 import Devotionals from "./screens/Devotionals";
+import LogIn from "./screens/LogIn";
 import { fetchDevotionals } from "./redux/actions/devotionalsActions";
 import { fetchNotifications } from "./redux/actions/notificationsActions";
+import Home from "./screens/Home";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -18,30 +19,10 @@ export default function App() {
   return (
     <Router>
       <Switch>
-        <Route
-          exact
-          path="/"
-          component={() => (
-            <Screen>
-              <h4 className="h4">Welcome</h4>
-              <p class="lead">
-                DekutCU App Notifications and Devotionals Editor
-              </p>
-              <Link
-                to="/devotionals"
-                type="button"
-                class="btn btn-success mr-2"
-              >
-                Devotionals
-              </Link>
-              <Link to="/notifications" type="button" class="btn btn-success">
-                Notifications
-              </Link>
-            </Screen>
-          )}
-        />
+        <Route exact path="/" component={Home} />
         <Route path="/devotionals" component={Devotionals} />
         <Route path="/notifications" component={Notifications} />
+        <Route path="/login" component={LogIn} />
         <Route
           path="*"
           component={() => (

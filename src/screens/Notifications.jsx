@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
+import firebase from "../config/Firebase";
 import Screen from "../layout/Screen";
 import Form from "../components/Form";
 import Button from "../components/Button";
@@ -17,9 +19,12 @@ import {
 export default function Notifications() {
   const dispatch = useDispatch();
   dispatch(fetchNotifications());
-  const notifications = useSelector(state => state.notifications.list).sort(
+  const notifications = useSelector((state) => state.notifications.list).sort(
     (a, b) => b.date - a.date
   );
+
+  const history = useHistory();
+  !firebase.auth().currentUser && history.push("/login");
 
   const validator = Yup.object().shape({
     text: Yup.string().required().min(10),
@@ -33,7 +38,7 @@ export default function Notifications() {
           <Form
             initialValues={{}}
             validationSchema={null}
-            onSubmit={val => dispatch(createNotification(val))}
+            onSubmit={(val) => dispatch(createNotification(val))}
           >
             <div className="d-flex flex-row align-items-center  my-2">
               <h5 className="h4 m-0 mt-2">Add a notification</h5>
@@ -57,7 +62,7 @@ export default function Notifications() {
           <div className="d-flex flex-row align-items-center  my-2">
             <h5 className="h4 m-0 mt-2">Notifications</h5>
           </div>
-          {notifications.map(notification => {
+          {notifications.map((notification) => {
             let id = "id" + Math.floor(Math.random() * 1000).toString();
             return (
               <div className="card p-3 mb-2">
