@@ -7,9 +7,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import Notifications from "./screens/Notifications";
 import Devotionals from "./screens/Devotionals";
 import LogIn from "./screens/LogIn";
+import Home from "./screens/Home";
+import Library from "./screens/Library";
 import { fetchDevotionals } from "./redux/actions/devotionalsActions";
 import { fetchNotifications } from "./redux/actions/notificationsActions";
-import Home from "./screens/Home";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export default function App() {
         <Route exact path="/" component={Home} />
         <Route path="/devotionals" component={Devotionals} />
         <Route path="/notifications" component={Notifications} />
+        <Route path="/library" component={Library} />
         <Route path="/login" component={LogIn} />
         <Route
           path="*"

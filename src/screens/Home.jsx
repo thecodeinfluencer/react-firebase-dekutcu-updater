@@ -15,8 +15,11 @@ export default function Home() {
       <Link to="/devotionals" type="button" class="btn btn-success mr-2">
         Devotionals
       </Link>
-      <Link to="/notifications" type="button" class="btn btn-success">
+      <Link to="/notifications" type="button" class="btn btn-success mr-2">
         Notifications
+      </Link>
+      <Link to="/library" type="button" class="btn btn-success">
+        Library
       </Link>
     </Screen>
   );

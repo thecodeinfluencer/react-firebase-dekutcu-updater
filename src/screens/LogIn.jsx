@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as Yup from "yup";
-import { DateTime } from "luxon";
+import firebase from "../config/Firebase";
+import { useHistory } from "react-router-dom";
 
 import Form from "../components/Form";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Screen from "../layout/Screen";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchDevotionals,
-  deleteDevotional,
-  createDevotional,
-} from "../redux/actions/devotionalsActions";
 import { signIn } from "../redux/actions/authActions";
 
 export default function LogIn() {
+  const history = useHistory();
+  firebase.auth().currentUser && history.push("/");
+
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.auth);
 
   let validator = Yup.object().shape({
     email: Yup.string().email().required().label("Email"),
@@ -37,6 +37,9 @@ export default function LogIn() {
             <div className="card p-3 mb-2">
               <Input name="email" placeholder="Email" />
               <Input name="password" type="password" placeholder="Password" />
+              {state.err && (
+                <p className="alert alert-danger">{state.err.message}</p>
+              )}
               <Button
                 style={{ alignSelf: "baseline" }}
                 classExtra="mt-2"

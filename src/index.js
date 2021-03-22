@@ -5,12 +5,13 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import "bootstrap";
 
-import rootReducer from "./redux/reducers/rootReducer";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import rootReducer from "./redux/reducers/rootReducer";
+import "./styles/all.css";
 
 //Use Local Storage Persistance
-const saveToLocalStorage = state => {
+const saveToLocalStorage = (state) => {
   try {
     let stringState = JSON.stringify(state);
     localStorage.setItem("@CUstate", stringState);
