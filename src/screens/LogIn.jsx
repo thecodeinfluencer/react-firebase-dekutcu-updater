@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "yup";
 import firebase from "../config/Firebase";
 import { useHistory } from "react-router-dom";
@@ -11,11 +11,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../redux/actions/authActions";
 
 export default function LogIn() {
-  const history = useHistory();
-  firebase.auth().currentUser && history.push("/");
-
   const dispatch = useDispatch();
+  const history = useHistory();
   const state = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        history.length < 1 ? history.push("/") : history.goBack();
+      }
+    });
+  }, [history, state.user]);
 
   let validator = Yup.object().shape({
     email: Yup.string().email().required().label("Email"),

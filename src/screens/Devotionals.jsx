@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { DateTime } from "luxon";
@@ -17,23 +17,19 @@ import {
 
 export default function Devotionals() {
   const dispatch = useDispatch();
-  dispatch(fetchDevotionals());
-
   const history = useHistory();
-  !firebase.auth().currentUser && history.push("/login");
-
-  // const [devotionals, setDevotionals] = useState([]);
   const devotionals = useSelector((state) => state.devotionals.list).sort(
     (a, b) => b.date - a.date
   );
 
-  // useEffect(() => {
-  //   setDevotionals(devotionalsStore);
-  // }, [dispatch, devotionalsStore]);
-
-  const submitted = () => {
-    //Clear Inputs
-  };
+  useEffect(() => {
+    dispatch(fetchDevotionals());
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (!user) {
+        history.push("/login");
+      }
+    });
+  }, [dispatch, history]);
 
   let validator = Yup.object().shape({
     text: Yup.string().required().min(20),

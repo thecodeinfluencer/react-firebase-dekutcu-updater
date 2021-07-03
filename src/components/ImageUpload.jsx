@@ -57,7 +57,7 @@ export default function ImageUpload({ name, label, ...defaultProps }) {
           id="upload-photo"
         />
         <label className="w-100" htmlFor="upload-photo">
-          <button type="button" class="btn btn-success btn-block text-left">
+          <button type="button" className="btn btn-success btn-block text-left">
             Upload Image
           </button>
         </label>

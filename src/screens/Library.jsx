@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Screen from "../layout/Screen";
 import { cards, tabs } from "../db/library";
 import "../styles/dashboard.css";
+import firebase from "../config/Firebase";
 import All from "../fragments/All";
+import { useHistory } from "react-router";
 
 export default function Library() {
   const [fragment, setFragment] = useState(<All />);
+  const history = useHistory();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (!user) {
+        history.push("/login");
+      }
+    });
+  }, [history]);
 
   return (
     <Screen>
