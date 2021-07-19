@@ -1,5 +1,11 @@
 import React from 'react';
 
+const downloadUrl =
+  'https://firebasestorage.googleapis.com/v0/b/dekutchristians.appspot.com/o/apps%2Fdekutcu.apk?alt=media&token=9d832c15-8be6-48ba-a766-fdce1a016c0b';
+
+const driveUrl =
+  'https://drive.google.com/file/d/16OZ0oRNpFnCaKjhHkIuySDez2sNqfdGI/view?usp=sharing';
+
 export default function SectionA() {
   return (
     <section id='home' className='hero-section'>
@@ -16,25 +22,21 @@ export default function SectionA() {
                 download size. Please bear with us.
               </p>
               <div className='hero-btns'>
-                <button
-                  //   href='javascript:void(0)'
-                  onClick={() =>
-                    window.open(
-                      'https://firebasestorage.googleapis.com/v0/b/dekutchristians.appspot.com/o/apps%2Fdekutcu.apk?alt=media&token=9d832c15-8be6-48ba-a766-fdce1a016c0b'
-                    )
-                  }
+                <a
+                  href={downloadUrl}
+                  // onClick={() => window.open(downloadurl)}
                   className='main-btn btn-hover wow fadeInUp'
                   data-wow-delay='.6s'
                 >
                   Download Now
-                </button>
-                <button
-                  //   href='javascript:void(0)'
+                </a>
+                <a
+                  href={driveUrl}
                   className='main-btn border-btn btn-hover wow fadeInUp'
                   data-wow-delay='.6s'
                 >
-                  Learn More
-                </button>
+                  Download on Drive
+                </a>
               </div>
             </div>
           </div>
